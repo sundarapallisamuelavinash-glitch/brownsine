@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <!-- ====== META & SEO ====== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADITYA SGPA &amp; Grade Predictor Calculator 2026</title>
+  <meta name="description" content="Free ADITYA Semester Grade Predictor Calculator. Calculate SGPA, grades, pass status, and required marks instantly." />
+  <meta name="keywords" content="JNTUK, SGPA Calculator, Grade Predictor, ADITYA, Semester Grades, 2026" />
+  <meta name="author" content="ADITYA Grade Tools" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://aditya-grade-predictor.app" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ADITYA SGPA & Grade Predictor Calculator 2026" />
+  <meta property="og:description" content="Free ADITYA Semester Grade Predictor Calculator. Calculate SGPA, grades, pass status, and required marks instantly." />
+  <meta property="og:type" content="website" />
+
+  <!-- ====== FONTS & ICONS ====== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- ====== LIBRARIES ====== -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- ====== STYLESHEET ====== -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ====== ANIMATED BACKGROUND BLOBS ====== -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>JNTUK Grade Predictor</span>
+      </div>
+      <nav class="header-actions">
+        <button class="btn-icon" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle Theme">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="main-content">
+
+    <!-- ====== HERO SECTION ====== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">ADITYA SGPA &amp; Grade Predictor <span class="highlight">2026</span></h1>
+      <p class="hero-sub">Instantly predict your semester grades, SGPA, pass status, and required marks based on the official JNTUK grading system.</p>
+    </section>
+
+    <!-- ====== SUBJECT INPUT SECTION ====== -->
+    <section class="card glass-card" aria-labelledby="input-title" id="input-section">
+      <div class="card-header">
+        <h2 id="input-title"><i class="fa-solid fa-pen-to-square"></i> Enter Subject Details</h2>
+        <div class="subject-count-control">
+          <label for="subject-count">Subjects:</label>
+          <select id="subject-count">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6" selected>6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dynamic subject rows will be injected here -->
+      <div id="subjects-container" class="subjects-grid"></div>
+
+      <div class="action-row">
+        <button class="btn btn-primary" id="calculate-btn"><i class="fa-solid fa-calculator"></i> Calculate Results</button>
+        <button class="btn btn-outline" id="reset-btn"><i class="fa-solid fa-rotate-left"></i> Reset All</button>
+      </div>
+    </section>
+
+    <!-- ====== RESULTS DASHBOARD (Hidden until calculated) ====== -->
+    <div id="results-dashboard" class="results-dashboard hidden">
+
+      <!-- SGPA & Overall Performance -->
+      <section class="card glass-card result-card animate-in" aria-labelledby="sgpa-title" id="sgpa-section">
+        <h2 id="sgpa-title"><i class="fa-solid fa-chart-line"></i> Overall Performance</h2>
+        <div class="sgpa-display">
+          <div class="circular-indicator" id="sgpa-circle">
+            <svg viewBox="0 0 120 120">
+              <circle class="bg-ring" cx="60" cy="60" r="52"></circle>
+              <circle class="progress-ring" cx="60" cy="60" r="52" id="sgpa-ring"></circle>
+            </svg>
+            <div class="circular-value">
+              <span id="sgpa-value">0.00</span>
+              <small>SGPA</small>
+            </div>
+          </div>
+          <div class="overall-stats">
+            <div class="stat-chip" id="overall-grade-chip">
+              <span class="stat-label">Overall Grade</span>
+              <span class="stat-value" id="overall-grade">—</span>
+            </div>
+            <div class="stat-chip" id="pass-status-chip">
+              <span class="stat-label">Status</span>
+              <span class="stat-value" id="pass-status">—</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-label">Total Credits</span>
+              <span class="stat-value" id="total-credits">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-label">Performance Zone</span>
+              <span class="stat-value" id="performance-zone">—</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Smart Analysis -->
+      <section class="card glass-card result-card animate-in" aria-labelledby="analysis-title" id="analysis-section">
+        <h2 id="analysis-title"><i class="fa-solid fa-lightbulb"></i> Smart Analysis</h2>
+        <div id="analysis-messages" class="analysis-messages"></div>
+      </section>
+
+      <!-- Subject-wise Results -->
+      <section class="card glass-card result-card animate-in" aria-labelledby="subject-results-title" id="subject-results-section">
+        <h2 id="subject-results-title"><i class="fa-solid fa-list-check"></i> Subject-wise Results</h2>
+        <div id="subject-results" class="subject-results-grid"></div>
+      </section>
+
+      <!-- Required Marks Table -->
+      <section class="card glass-card result-card animate-in" aria-labelledby="required-title" id="required-section">
+        <h2 id="required-title"><i class="fa-solid fa-bullseye"></i> Required Marks Calculator</h2>
+        <div id="required-marks-table" class="required-marks-table"></div>
+      </section>
+
+      <!-- Pie Chart -->
+      <section class="card glass-card result-card animate-in" aria-labelledby="chart-title" id="chart-section">
+        <h2 id="chart-title"><i class="fa-solid fa-chart-pie"></i> Grade Distribution</h2>
+        <div class="chart-wrapper">
+          <canvas id="grade-chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
+      <section class="card glass-card result-card animate-in action-card" id="actions-section">
+        <h2><i class="fa-solid fa-share-nodes"></i> Actions</h2>
+        <div class="action-row wrap">
+          <button class="btn btn-accent" id="copy-btn"><i class="fa-solid fa-copy"></i> Copy Results</button>
+          <button class="btn btn-accent" id="pdf-btn"><i class="fa-solid fa-file-pdf"></i> Export PDF</button>
+          <button class="btn btn-accent" id="share-btn"><i class="fa-solid fa-share"></i> Share</button>
+          <button class="btn btn-accent" id="save-btn"><i class="fa-solid fa-floppy-disk"></i> Save Data</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="disclaimer"><i class="fa-solid fa-circle-info"></i> Disclaimer: This calculator provides estimated results based on JNTUK grading patterns. Official results may vary.</p>
+      <p class="copyright">&copy; 2026 ADITYA SGPA &amp; Grade Predictor. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ====== TOAST NOTIFICATION ====== -->
+  <div id="toast" class="toast hidden" role="alert" aria-live="polite"></div>
+
+  <!-- ====== MAIN SCRIPT ====== -->
+  <script src="script.js"></script>
+</body>
+</html>
